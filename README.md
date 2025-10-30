@@ -1,4 +1,4 @@
-# 🚀 ProjetoUsuarios
+# 🚀 Manager
 
 API REST desenvolvida em **ASP.NET Core 8**, estruturada com base em **Clean Architecture (DDD)**, utilizando **Entity Framework Core** e **SQL Server**.  
 O objetivo deste projeto é demonstrar uma arquitetura limpa, modular e escalável para sistemas corporativos modernos.
@@ -7,23 +7,23 @@ O objetivo deste projeto é demonstrar uma arquitetura limpa, modular e escaláv
 
 ## 🧱 Estrutura do Projeto
 
-ProjetoUsuarios/
+Manager/
 │
-├── ProjetoUsuarios.Domain/ # Entidades e contratos de domínio
+├── Manager.Domain/ # Entidades e contratos de domínio
 │ ├── Entities/
 │ └── Interfaces/
 │
-├── ProjetoUsuarios.Application/ # Camada de aplicação (DTOs, Services)
+├── Manager.Application/ # Camada de aplicação (DTOs, Services)
 │ ├── DTOs/
 │ ├── Interfaces/
 │ └── Services/
 │
-├── ProjetoUsuarios.Infrastructure/ # Camada de infraestrutura (DbContext, Repositórios)
+├── Manager.Infrastructure/ # Camada de infraestrutura (DbContext, Repositórios)
 │ ├── Data/
 │ ├── Repositories/
 │ └── DependencyInjection.cs
 │
-└── ProjetoUsuarios.WebAPI/ # Camada de apresentação (Controllers, Configurações)
+└── Manager/ # Camada de apresentação (Controllers, Configurações)
 ├── Controllers/
 ├── appsettings.json
 └── Program.cs
@@ -58,7 +58,9 @@ Edite o arquivo `appsettings.json` em `ProjetoUsuarios.WebAPI` com sua string de
 ```json
 "ConnectionStrings": {
   "DefaultConnection": "Server=localhost;Database=ProjetoUsuarios;User Id=sa;Password=SUA_SENHA;TrustServerCertificate=True;"
-}```
+}
+
+---
 
 🧩 Criando o Banco e Aplicando Migrations
 
