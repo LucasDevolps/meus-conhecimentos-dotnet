@@ -6,7 +6,7 @@ O objetivo deste projeto é demonstrar uma arquitetura limpa, modular e escaláv
 ---
 
 ## 🧱 Estrutura do Projeto
-
+``` bash
 Manager/
 │
 ├── Manager.Domain/ # Entidades e contratos de domínio
