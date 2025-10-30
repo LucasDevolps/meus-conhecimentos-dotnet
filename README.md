@@ -71,10 +71,14 @@ Edite o arquivo `appsettings.json` em `Manager` com sua string de conexão:
 Execute os seguintes comandos no terminal, dentro da pasta raiz:
 
 # Cria a migration inicial
+```bash
 dotnet ef migrations add InitialCreate --project Manager.Infrastructure --startup-project Manager
+```
 
 # Atualiza o banco
+```bash
 dotnet ef database update --project Manager.Infrastructure --startup-project Manager
+```
 
 ## 🚀 Executando o Projeto
 
