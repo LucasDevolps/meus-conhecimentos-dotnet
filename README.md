@@ -104,7 +104,9 @@ DELETE	/api/usuarios/{id}	Remove um usuário
 🧰 Adicionar observabilidade (Serilog, Health Checks, etc.)
 
 👨‍💻 Autor Lucas De Souza
+
 💼 Desenvolvedor .NET | Apaixonado por arquitetura limpa e boas práticas
+
 📧 lucasribeirodesouza2000@gmail.com
 
 🐙 GitHub
