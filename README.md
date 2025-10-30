@@ -59,8 +59,10 @@ Edite o arquivo `appsettings.json` em `ProjetoUsuarios.WebAPI` com sua string de
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=ProjetoUsuarios;User Id=sa;Password=SUA_SENHA;TrustServerCertificate=True;"
+  "DefaultConnection": "Server=localhost;Database=ProjetoUsuarios;User Id=sa;Password=1234as;TrustServerCertificate=True;"
 }
+
+```
 
 ---
 
