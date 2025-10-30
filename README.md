@@ -28,6 +28,8 @@ Manager/
 ├── appsettings.json
 └── Program.cs
 
+```
+
 ---
 
 ## ⚙️ Tecnologias Utilizadas
