@@ -91,17 +91,14 @@ A API estará disponível em:
 
 ## 🧩 Endpoints Disponíveis
 
-Método	Endpoint	Descrição
+| Método | Endpoint             | Descrição                     |
+| :----- | :------------------- | :---------------------------- |
+| GET    | `/api/usuarios`      | Lista todos os usuários       |
+| GET    | `/api/usuarios/{id}` | Busca um usuário por ID       |
+| POST   | `/api/usuarios`      | Cadastra um novo usuário      |
+| PUT    | `/api/usuarios`      | Atualiza um usuário existente |
+| DELETE | `/api/usuarios/{id}` | Remove um usuário             |
 
-GET	/api/usuarios	Lista todos os usuários
-
-GET	/api/usuarios/{id}	Busca um usuário por ID
-
-POST	/api/usuarios	Cadastra um novo usuário
-
-PUT	/api/usuarios	Atualiza um usuário existente
-
-DELETE	/api/usuarios/{id}	Remove um usuário
 
 👨‍💻 Autor Lucas De Souza
 
