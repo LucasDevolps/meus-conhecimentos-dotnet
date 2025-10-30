@@ -66,7 +66,7 @@ Edite o arquivo `appsettings.json` em `Manager` com sua string de conexão:
 
 ---
 
-🧩 Criando o Banco e Aplicando Migrations
+## 🧩 Criando o Banco e Aplicando Migrations
 
 Execute os seguintes comandos no terminal, dentro da pasta raiz:
 
@@ -76,32 +76,28 @@ dotnet ef migrations add InitialCreate --project Manager.Infrastructure --startu
 # Atualiza o banco
 dotnet ef database update --project Manager.Infrastructure --startup-project Manager
 
-🚀 Executando o Projeto
+## 🚀 Executando o Projeto
 
+```bash
 dotnet run --project Manager
-
+```
 
 A API estará disponível em:
 👉 https://localhost:5001/swagger
 
-🧩 Endpoints Disponíveis
+## 🧩 Endpoints Disponíveis
+
 Método	Endpoint	Descrição
+
 GET	/api/usuarios	Lista todos os usuários
+
 GET	/api/usuarios/{id}	Busca um usuário por ID
+
 POST	/api/usuarios	Cadastra um novo usuário
+
 PUT	/api/usuarios	Atualiza um usuário existente
+
 DELETE	/api/usuarios/{id}	Remove um usuário
-🧠 Próximos Passos (Sugestões de Evolução)
-
-🔐 Implementar autenticação com JWT
-
-🧾 Adicionar FluentValidation
-
-🔄 Incluir AutoMapper para mapeamento entre entidades e DTOs
-
-🧪 Criar testes unitários com xUnit / NUnit
-
-🧰 Adicionar observabilidade (Serilog, Health Checks, etc.)
 
 👨‍💻 Autor Lucas De Souza
 
