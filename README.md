@@ -55,7 +55,7 @@ Manager/
 
 ## 💾 Configuração do Banco de Dados
 
-Edite o arquivo `appsettings.json` em `ProjetoUsuarios.WebAPI` com sua string de conexão:
+Edite o arquivo `appsettings.json` em `Manager` com sua string de conexão:
 
 ```json
 "ConnectionStrings": {
@@ -71,14 +71,14 @@ Edite o arquivo `appsettings.json` em `ProjetoUsuarios.WebAPI` com sua string de
 Execute os seguintes comandos no terminal, dentro da pasta raiz:
 
 # Cria a migration inicial
-dotnet ef migrations add InitialCreate --project ProjetoUsuarios.Infrastructure --startup-project ProjetoUsuarios.WebAPI
+dotnet ef migrations add InitialCreate --project Manager.Infrastructure --startup-project Manager
 
 # Atualiza o banco
-dotnet ef database update --project ProjetoUsuarios.Infrastructure --startup-project ProjetoUsuarios.WebAPI
+dotnet ef database update --project Manager.Infrastructure --startup-project Manager
 
 🚀 Executando o Projeto
 
-dotnet run --project ProjetoUsuarios.WebAPI
+dotnet run --project Manager
 
 
 A API estará disponível em:
@@ -107,6 +107,6 @@ DELETE	/api/usuarios/{id}	Remove um usuário
 
 Lucas De Souza
 💼 Desenvolvedor .NET | Apaixonado por arquitetura limpa e boas práticas
-📧 lucas.souza.dev@outlook.com
+📧 lucasribeirodesouza2000@gmail.com
 
 🐙 GitHub
