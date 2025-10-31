@@ -14,6 +14,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
 
+//JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -38,8 +39,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Logs 
 builder.Services.AddScoped<ILogRequestResponseRepository, LogRequestResponseRepository>();
 builder.Services.AddScoped<ILogRequestResponseService, LogRequestResponseService>();
+
+//Pegando variáveis de ambiente
+builder.Configuration.AddEnvironmentVariables();
+
 
 var app = builder.Build();
 
