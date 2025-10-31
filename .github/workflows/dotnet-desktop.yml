@@ -28,14 +28,15 @@ jobs:
       - name: Executar testes automatizados
         run: dotnet test ./Manager/Manager.sln --configuration Release --no-build --verbosity normal
 
-      - name: Apply EF Core migrations
+      - name: Aplicando EF Core com suas migrations
         if: github.ref == 'refs/heads/main'
         env:
-            ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
+          ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
         run: |
-            dotnet tool install --global dotnet-ef
-            export PATH="$PATH:/home/runner/.dotnet/tools"
-            dotnet ef database update --project Manager.Infrastructure --startup-project Manager
+          dotnet tool install --global dotnet-ef
+          export PATH="$PATH:/home/runner/.dotnet/tools"
+          dotnet ef database update --project Manager.Infrastructure --startup-project Manager
+
 
 
       - name: Publicar build
