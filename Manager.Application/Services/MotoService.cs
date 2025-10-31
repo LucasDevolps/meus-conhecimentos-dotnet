@@ -11,9 +11,12 @@ public sealed class MotoService : IMotoService
 
     public async Task AtualizaAsync(MotoDTO dto)
     {
-        var moto = _repository.GetByIdAsync(dto.Uuid);
+        var moto = await _repository.GetByIdAsync(dto.Uuid);
         if (moto is null)
             throw new KeyNotFoundException("Moto não encontrada.");
+
+        if(moto.Placa == dto.Placa)
+            throw new InvalidOperationException("A placa informada já está em uso por outra moto.");
 
         await _repository.UpdateAsync(dto);
     }
@@ -41,6 +44,12 @@ public sealed class MotoService : IMotoService
 
     public async Task<MotoDTO> CriaAsync(MotoDTO dto)
     {
+
+        var motoValidator = await _repository.GetByIdAsync(dto.Uuid);
+
+        if (motoValidator?.Placa == dto.Placa)
+            throw new InvalidOperationException("A placa informada já está em uso por outra moto.");
+
         var moto = new MotoDTO
         (
             Id: dto.Id,
@@ -53,7 +62,7 @@ public sealed class MotoService : IMotoService
             DataCadastro: dto.DataCadastro
         );
 
-        await _repository.UpdateAsync( dto );
+        await _repository.AddAsync( dto );
         return moto;
     }
 

@@ -27,7 +27,7 @@ public class MotoController : ControllerBase
         return Ok(motos);
     }
 
-    [HttpGet("/{uuid:guid}")]
+    [HttpGet("/api/Moto/{uuid:guid}")]
     public async Task<ActionResult<MotoDTO?>> GetMotoById(Guid uuid)
     {
         MotoDTO? moto = await _motoService.BuscaPorIdAsync(uuid);
@@ -39,14 +39,14 @@ public class MotoController : ControllerBase
         MotoDTO createdMoto = await _motoService.CriaAsync(dto);
         return CreatedAtAction(nameof(GetMotoById), new { uuid = createdMoto.Uuid }, createdMoto);
     }
-    [HttpPut("/{uuid:guid}")]
+    [HttpPut("/api/Moto/{uuid:guid}")]
     public async Task<IActionResult> UpdateMoto(Guid uuid, MotoDTO dto)
     {
         if (uuid != dto.Uuid) return BadRequest("UUID mismatch.");
         await _motoService.AtualizaAsync(dto);
         return NoContent();
     }
-    [HttpDelete("/{uuid:guid}")]
+    [HttpDelete("/api/Moto/{uuid:guid}")]
     public async Task<IActionResult> DeleteMoto(Guid uuid)
     {
         await _motoService.DeletaAsync(uuid);
