@@ -20,7 +20,7 @@ jobs:
         dotnet-version: 8.0  
 
     - name: Restaurar dependências
-      run: dotnet restore ./Manager.sln
+      run: dotnet restore ./Manager/Manager.WebApi.csproj
 
     - name: Compilar solução
       run: dotnet build ./Manager.sln --configuration Release --no-restore
@@ -29,7 +29,7 @@ jobs:
       run: dotnet test ./Manager.sln --configuration Release --no-build --verbosity normal
 
     - name: Publicar build
-      run: dotnet publish ./Manager.Api/Manager.Api.csproj -c Release -o ./publish
+      run: dotnet publish ./Manager/Manager.WebApi.csproj -c Release -o ./publish
 
     - name: Upload artefato
       uses: actions/upload-artifact@v4
