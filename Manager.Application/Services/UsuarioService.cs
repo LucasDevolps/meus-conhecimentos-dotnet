@@ -18,7 +18,7 @@ public sealed class UsuarioService : IUsuarioService
         return usuarios.Select(u => new UsuarioDTO(u.Id, u.Nome, u.Email, u.SenhaHash.GetHashCode().ToString(), u.DataCadastro));
     }
 
-    public async Task<UsuarioDTO?> GetByIdAsync(int id)
+    public async Task<UsuarioDTO?> GetByIdAsync(Guid id)
     {
         var usuario = await _repository.GetByIdAsync(id);
         return usuario is null ? null : new UsuarioDTO(usuario.Id, usuario.Nome, usuario.Email, usuario.SenhaHash.GetHashCode().ToString(), usuario.DataCadastro);
@@ -37,7 +37,7 @@ public sealed class UsuarioService : IUsuarioService
         await _repository.UpdateAsync(usuario);
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(Guid id)
     {
         var usuario = await _repository.GetByIdAsync(id);
         if (usuario != null)

@@ -10,8 +10,9 @@ public class AppDbContext : DbContext
         : base(options) { }
 
     public DbSet<Usuario> Usuarios { get; set; }
-
+    public DbSet<Moto> Motos { get; set; }
     public DbSet<LogRequestResponse> LogRequestResponses => Set<LogRequestResponse>();
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
