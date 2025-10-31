@@ -1,7 +1,18 @@
 # 🚀 Manager
 
-API REST desenvolvida em **ASP.NET Core 8**, estruturada com base em **Clean Architecture (DDD)**, utilizando **Entity Framework Core** e **SQL Server**.  
-O objetivo deste projeto é demonstrar uma arquitetura limpa, modular e escalável para sistemas corporativos modernos.
+![Build](https://github.com/SEU_USUARIO/Manager/actions/workflows/build.yml/badge.svg)
+![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-active-success)
+
+---
+
+## 📌 Sobre o projeto
+
+**Manager API** é uma aplicação desenvolvida em **.NET 8** voltada para gestão e integração modular de sistemas.  
+O projeto segue os princípios de **Clean Architecture**, **DDD** e **boas práticas de DevOps**, com integração contínua via **GitHub Actions**.
+
+A API é preparada para autenticação **JWT**, banco de dados **SQL Server**, e organização em camadas (`Domain`, `Infrastructure`, `Service`, `Api`).
 
 ---
 
@@ -98,6 +109,16 @@ A API estará disponível em:
 | POST   | `/api/usuarios`      | Cadastra um novo usuário      |
 | PUT    | `/api/usuarios`      | Atualiza um usuário existente |
 | DELETE | `/api/usuarios/{id}` | Remove um usuário             |
+
+---
+
+## 🚀 Pipeline de Build (GitHub Actions)
+
+O projeto conta com um **workflow automatizado** que garante qualidade e estabilidade a cada commit.
+
+```yaml
+name: Build & Test .NET API
+```
 
 
 👨‍💻 Autor Lucas De Souza
