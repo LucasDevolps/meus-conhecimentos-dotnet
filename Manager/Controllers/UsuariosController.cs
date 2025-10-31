@@ -1,5 +1,6 @@
 ﻿using Manager.Domain.Entities;
 using Manager.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +12,10 @@ public class UsuariosController : ControllerBase
 {
     private readonly AppDbContext _context;
 
-    public UsuariosController(AppDbContext context)
-    {
-        _context = context;
-    }
-    // GET: api/Usuarios
+    public UsuariosController(AppDbContext context) => _context = context;
+
+
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         => await _context.Usuarios.ToListAsync();
@@ -27,6 +27,7 @@ public class UsuariosController : ControllerBase
         return usuario is null ? NotFound() : usuario;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
     {
@@ -35,6 +36,7 @@ public class UsuariosController : ControllerBase
         return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id }, usuario);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
     {
@@ -44,6 +46,7 @@ public class UsuariosController : ControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUsuario(int id)
     {
