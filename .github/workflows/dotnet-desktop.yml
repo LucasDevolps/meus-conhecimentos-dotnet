@@ -1,0 +1,38 @@
+name: Build & Test .NET API
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Instalar .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0  
+
+    - name: Restaurar dependências
+      run: dotnet restore ./Manager.sln
+
+    - name: Compilar solução
+      run: dotnet build ./Manager.sln --configuration Release --no-restore
+
+    - name: Executar testes automatizados
+      run: dotnet test ./Manager.sln --configuration Release --no-build --verbosity normal
+
+    - name: Publicar build
+      run: dotnet publish ./Manager.Api/Manager.Api.csproj -c Release -o ./publish
+
+    - name: Upload artefato
+      uses: actions/upload-artifact@v4
+      with:
+        name: manager-api
+        path: ./publish
