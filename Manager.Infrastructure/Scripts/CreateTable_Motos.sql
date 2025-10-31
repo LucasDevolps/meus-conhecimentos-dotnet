@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Motos] (
+    [Id] INT IDENTITY(1,1)  NOT NULL,
+    [Uuid] UNIQUEIDENTIFIER NOT NULL,
+    [Ano] INT NOT NULL,
+    [Modelo] VARCHAR(100) NOT NULL,
+    [Placa] VARCHAR(100) NOT NULL,
+    [DataCriacao] DATETIME2 NOT NULL CONSTRAINT [DF_Motos_DataCriacao] DEFAULT (GETUTCDATE()),
+    CONSTRAINT [PK_Motos] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Motos_Uuid] UNIQUE ([Uuid])
+);
