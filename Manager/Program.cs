@@ -1,5 +1,8 @@
 using Manager.Infrastructure;
+using Manager.Infrastructure.Repositories.Logging;
+using Manager.Infrastructure.Services;
 using Manager.Web.Services;
+using Manager.WebApi.Middleware;
 using Manager.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +38,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ILogRequestResponseRepository, LogRequestResponseRepository>();
+builder.Services.AddScoped<ILogRequestResponseService, LogRequestResponseService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -44,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
 app.UseAuthorization();
 
