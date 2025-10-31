@@ -27,6 +27,14 @@ jobs:
 
     - name: Executar testes automatizados
       run: dotnet test ./Manager/Manager.sln --configuration Release --no-build --verbosity normal
+      
+    - name: Apply EF Core migrations
+        env:
+          ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
+        run: |
+          dotnet tool install --global dotnet-ef
+          export PATH="$PATH:/home/runner/.dotnet/tools"
+          dotnet ef database update --project Manager.Infrastructure --startup-project Manager
 
     - name: Publicar build
       run: dotnet publish ./Manager/Manager.WebApi.csproj -c Release -o ./publish
