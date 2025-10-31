@@ -15,20 +15,20 @@ public sealed class UsuarioService : IUsuarioService
     public async Task<IEnumerable<UsuarioDTO>> GetAllAsync()
     {
         var usuarios = await _repository.GetAllAsync();
-        return usuarios.Select(u => new UsuarioDTO(u.Id, u.Nome, u.Email, u.DataCadastro));
+        return usuarios.Select(u => new UsuarioDTO(u.Id, u.Nome, u.Email, u.SenhaHash.GetHashCode().ToString(), u.DataCadastro));
     }
 
     public async Task<UsuarioDTO?> GetByIdAsync(int id)
     {
         var usuario = await _repository.GetByIdAsync(id);
-        return usuario is null ? null : new UsuarioDTO(usuario.Id, usuario.Nome, usuario.Email, usuario.DataCadastro);
+        return usuario is null ? null : new UsuarioDTO(usuario.Id, usuario.Nome, usuario.Email, usuario.SenhaHash.GetHashCode().ToString(), usuario.DataCadastro);
     }
 
     public async Task<UsuarioDTO> CreateAsync(UsuarioDTO dto)
     {
-        var usuario = new Usuario { Nome = dto.Nome, Email = dto.Email, Senha = "123456" };
+        var usuario = new Usuario { Nome = dto.Nome, Email = dto.Email, SenhaHash = dto.Senha.GetHashCode().ToString() };
         await _repository.AddAsync(usuario);
-        return new UsuarioDTO(usuario.Id, usuario.Nome, usuario.Email, usuario.DataCadastro);
+        return new UsuarioDTO(usuario.Id, usuario.Nome, usuario.Email, usuario.SenhaHash, usuario.DataCadastro);
     }
 
     public async Task UpdateAsync(UsuarioDTO dto)

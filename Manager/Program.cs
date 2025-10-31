@@ -1,5 +1,6 @@
 using Manager.Infrastructure;
 using Manager.Web.Services;
+using Manager.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -26,6 +27,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<TokenService>();
+
+builder.Services.AddScoped<UserService>();
 
 
 builder.Services.AddControllers();

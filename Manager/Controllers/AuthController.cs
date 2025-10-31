@@ -1,6 +1,7 @@
 ﻿using Manager.Web.Models;
 using Manager.Web.Services;
 using Manager.WebApí.Models;
+using Manager.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Web.Controllers;
@@ -10,21 +11,34 @@ namespace Manager.Web.Controllers;
 public sealed class AuthController : ControllerBase
 {
     private readonly TokenService _tokenService;
+    private readonly UserService _userService;
 
-    public AuthController(TokenService tokenService)
+    public AuthController(TokenService tokenService, UserService userService)
     {
         _tokenService = tokenService;
+        _userService = userService;
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
+        var token = string.Empty;
+
         if (request.Username == "admin" && request.Password == "1234")
         {
-            var token = _tokenService.GenerateToken(request.Username, "Admin");
+            token = _tokenService.GenerateToken(request.Username, "Admin");
             return Ok(new LoginResponse(token));
         }
 
-        return Unauthorized("Credenciais inválidas");
+        var user = await _userService.GetByUsernameAsync(request.Username);
+
+        if (user is null)
+            return Unauthorized("Usuário não encontrado");
+
+        if (!_userService.VerifyPassword(request.Password, user.SenhaHash))
+            return Unauthorized("Senha inválida");
+
+        token = _tokenService.GenerateToken(request.Username, user.Role);
+        return Ok(new LoginResponse(token));
     }
 }
