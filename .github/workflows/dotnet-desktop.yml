@@ -11,24 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout código
-      uses: actions/checkout@v4
+      - name: Checkout código
+        uses: actions/checkout@v4
 
-    - name: Instalar .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0  
+      - name: Instalar .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restaurar dependências
-      run: dotnet restore ./Manager/Manager.WebApi.csproj
+      - name: Restaurar dependências
+        run: dotnet restore ./Manager/Manager.WebApi.csproj
 
-    - name: Compilar solução
-      run: dotnet build ./Manager/Manager.sln --configuration Release --no-restore
+      - name: Compilar solução
+        run: dotnet build ./Manager/Manager.sln --configuration Release --no-restore
 
-    - name: Executar testes automatizados
-      run: dotnet test ./Manager/Manager.sln --configuration Release --no-build --verbosity normal
-      
-    - name: Apply EF Core migrations
+      - name: Executar testes automatizados
+        run: dotnet test ./Manager/Manager.sln --configuration Release --no-build --verbosity normal
+
+      - name: Apply EF Core migrations
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
         run: |
@@ -36,11 +36,11 @@ jobs:
           export PATH="$PATH:/home/runner/.dotnet/tools"
           dotnet ef database update --project Manager.Infrastructure --startup-project Manager
 
-    - name: Publicar build
-      run: dotnet publish ./Manager/Manager.WebApi.csproj -c Release -o ./publish
+      - name: Publicar build
+        run: dotnet publish ./Manager/Manager.WebApi.csproj -c Release -o ./publish
 
-    - name: Upload artefato
-      uses: actions/upload-artifact@v4
-      with:
-        name: manager-api
-        path: ./publish
+      - name: Upload artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: manager-api
+          path: ./publish
