@@ -51,6 +51,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//Commit to execute git actions with migration
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
 app.UseAuthorization();
