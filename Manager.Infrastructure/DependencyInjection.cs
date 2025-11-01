@@ -1,4 +1,5 @@
-﻿using Manager.Application.Interfaces;
+﻿using Manager.Application.DTOs;
+using Manager.Application.Interfaces;
 using Manager.Application.Services;
 using Manager.Domain.Entities;
 using Manager.Domain.Interfaces;
@@ -18,7 +19,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IRepository<Usuario>, UsuarioRepository>();
-        services.AddScoped<IUsuarioService, UsuarioService>();
+        services.AddScoped<IRepository<Moto>, MotoRepository>();
 
         return services;
     }
