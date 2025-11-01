@@ -4,6 +4,7 @@ using Manager.Application.Services;
 using Manager.Domain.Entities;
 using Manager.Domain.Interfaces;
 using Manager.Infrastructure;
+using Manager.Infrastructure.Data;
 using Manager.Infrastructure.Repositories;
 using Manager.Infrastructure.Repositories.Logging;
 using Manager.Infrastructure.Services;
@@ -11,6 +12,7 @@ using Manager.Web.Services;
 using Manager.WebApi.Middleware;
 using Manager.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -56,7 +58,28 @@ builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 
-// ✅ Middleware
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    if (!db.Database.CanConnect())
+    {
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var createScriptPath = Path.Combine(AppContext.BaseDirectory, "Database/Scripts/CreateDatabase.sql");
+
+        if (File.Exists(createScriptPath))
+        {
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            var commandText = File.ReadAllText(createScriptPath);
+            using var command = new SqlCommand(commandText, connection);
+            command.ExecuteNonQuery();
+        }
+    }
+}
+
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
