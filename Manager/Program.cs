@@ -50,6 +50,10 @@ builder.Services.AddScoped<IMotoService, MotoService>();
 builder.Services.AddScoped<ILogRequestResponseRepository, LogRequestResponseRepository>();
 builder.Services.AddScoped<ILogRequestResponseService, LogRequestResponseService>();
 
+// RabbitMQ
+builder.Services.AddSingleton<IRabbitMqService, RabbitMqService>();
+
+//Controller e Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -57,6 +61,8 @@ builder.Services.AddSwaggerGen();
 builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
+
+var rabbit = app.Services.GetRequiredService<IRabbitMqService>();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -76,9 +82,11 @@ using (var scope = app.Services.CreateScope())
             command.ExecuteNonQuery();
         }
     }
+
+    rabbit = scope.ServiceProvider.GetRequiredService<IRabbitMqService>() as RabbitMqService;
+    if (rabbit != null)
+        await rabbit.InitializeAsync(); 
 }
-
-
 
 if (app.Environment.IsDevelopment())
 {

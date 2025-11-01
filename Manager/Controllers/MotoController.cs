@@ -1,6 +1,7 @@
 ﻿using Manager.Application.DTOs;
 using Manager.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using RabbitMQ.Client;
 
 namespace Manager.WebApi.Controllers;
 
@@ -20,14 +21,14 @@ public class MotoController : ControllerBase
         _motoService = motoService;
     }
 
-    [HttpGet]
+    [HttpGet("/api/Moto")]
     public async Task<ActionResult<IEnumerable<MotoDTO>>> GetMotos()
     {
-        IEnumerable<MotoDTO> motos = await _motoService.BuscasTudoAsync();
+        IEnumerable<MotoDTO> motos = await _motoService.BuscarTudoAsync();
         return Ok(motos);
     }
 
-    [HttpGet("/api/Moto/{uuid:guid}")]
+    [HttpGet("/api/Moto/{uuid:guid}/id")]
     public async Task<ActionResult<MotoDTO?>> GetMotoById(Guid uuid)
     {
         MotoDTO? moto = await _motoService.BuscaPorIdAsync(uuid);
@@ -36,20 +37,41 @@ public class MotoController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<MotoDTO>> CreateMoto(MotoDTO dto)
     {
-        MotoDTO createdMoto = await _motoService.CriaAsync(dto);
-        return CreatedAtAction(nameof(GetMotoById), new { uuid = createdMoto.Uuid }, createdMoto);
+        try
+        {
+            MotoDTO createdMoto = await _motoService.CriaAsync(dto);
+            return CreatedAtAction(nameof(GetMotoById), new { uuid = createdMoto.Uuid }, createdMoto);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex.InnerException);
+        }
     }
     [HttpPut("/api/Moto/{uuid:guid}")]
     public async Task<IActionResult> UpdateMoto(Guid uuid, MotoDTO dto)
     {
-        if (uuid != dto.Uuid) return BadRequest("UUID mismatch.");
-        await _motoService.AtualizaAsync(dto);
-        return NoContent();
+        try
+        {
+            if (uuid != dto.Uuid) return BadRequest("UUID mismatch.");
+            await _motoService.AtualizaAsync(dto);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex.InnerException);
+        }
     }
     [HttpDelete("/api/Moto/{uuid:guid}")]
     public async Task<IActionResult> DeleteMoto(Guid uuid)
     {
-        await _motoService.DeletaAsync(uuid);
-        return NoContent();
+        try
+        {
+            await _motoService.DeletaAsync(uuid);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex.InnerException);
+        }
     }
 }
